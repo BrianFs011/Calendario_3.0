@@ -1,8 +1,12 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {Calendar,RodaPe} from './dayOfMonth'
 import moment from 'moment'
 
+
 export default (initialYear,initialMonth,initialDay)=>{
+  
+  const [isVisible, setIsVisible] = useState()
+
   const dates = []
 
   const date = new Date(initialYear,initialMonth,initialDay)
@@ -10,7 +14,7 @@ export default (initialYear,initialMonth,initialDay)=>{
 
   for(let i= 0; i<36;i++){ 
     if(date.getMonth() == save){
-      dates.push(<Calendar dayweek={moment(date).format('ddd')} day={moment(date).format('D')} key={date} />)
+      dates.push(<Calendar dayweek={moment(date).format('ddd')} day={moment(date).format('D')} key={date} isVisible={isVisible}/>)
       date.setDate(date.getDate()+1)
     }
   }
@@ -48,4 +52,4 @@ const Baseboard = (props)=>{
   return rodape 
 }
 
-export {Baseboard} 
+export {Baseboard, } 

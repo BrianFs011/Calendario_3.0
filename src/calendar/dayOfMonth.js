@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {TouchableOpacity,Text,View} from 'react-native'
 
 import styles from '../styles/styles'
@@ -7,6 +7,17 @@ import config from './initialConfig'
 const Calendar = (props)=>{
 
   const {day, dayweek} = props
+  const [isVisible, setIsVisible] = useState(false)
+
+  function readList(){
+    setIsVisible(!isVisible)
+  }
+
+  useEffect(()=>{
+    config.isVisible
+  },[isVisible])
+
+
 
   return (
     
@@ -25,7 +36,7 @@ const Calendar = (props)=>{
           </View>
         :
           <View style={{flexDirection:'row'}}>
-            <TouchableOpacity style={styles.boxDayMonth}><Text style={styles.textDayMonth}>{day}</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.boxDayMonth} onPress={()=>{readList()}}><Text style={styles.textDayMonth}>{day}</Text></TouchableOpacity>
           </View>
       }
 
@@ -72,5 +83,7 @@ const DayWeek = ()=>{
 }
 
 const RodaPe = ()=>{return <View style={styles.boxDayMonth}/>}
+
+
 
 export {Calendar, DayWeek, RodaPe}

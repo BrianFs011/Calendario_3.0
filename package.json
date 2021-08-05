@@ -10,9 +10,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "material-design-for-react": "^0.0.109",
     "moment": "^2.29.1",
     "react": "17.0.1",
-    "react-native": "0.64.2"
+    "react-native": "0.64.2",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-swipe-gestures": "^1.0.5",
+    "react-native-vector-icons": "^8.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
