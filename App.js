@@ -39,7 +39,7 @@ export default ()=>{
       <View style={styles.container}>
         
         <View style={styles.title}>
-          <Text style={styles.textTitle}>{moment(date).format('MMMM YYYY')}</Text>
+          <Text style={styles.textTitle}>{initialMonth == new Date().getMonth()? moment(initialDate).format('D MMMM YYYY') : moment(date).format('MMMM YYYY')}</Text>
         </View>
 
         <Filter nextMonth={()=>nextMonth()} lastMonth={()=>lastMonth()}/>

@@ -41,7 +41,5 @@ dados.forEach(d=>{
   })
   
   const save = {...inicialData}
-  
-  console.log(component)
-
+  console.log(dados)
 export {dados, component, save}

@@ -10,7 +10,7 @@ export default (initialYear,initialMonth,initialDay)=>{
 
   for(let i= 0; i<36;i++){ 
     if(date.getMonth() == save){
-      dates.push(<Calendar dayweek={moment(date).format('ddd')} day={moment(date).format('D')} key={date} />)
+      dates.push(<Calendar dayweek={moment(date).format('ddd')} day={moment(date).format('D')} key={date} fullDay={moment(date).format('D MMM YYYY')}/>)
       date.setDate(date.getDate()+1)
     }
   }
