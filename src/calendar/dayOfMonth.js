@@ -35,27 +35,19 @@ const dados = [{
 },];
 
 
-
 const Calendar = (props)=>{
+
+  const [banco, setBanco] = useState(null)
+  
+  async function buscar(){
+    const valor = await AsyncStorage.getItem('BancoDados')
+    const state = JSON.parse(valor)
+    setBanco(state)
+    //console.log(state)
+  } 
+
   
   const {day, dayweek, fullDay} = props
-  /*const Armazenar = (chave,valor)=>{
-    AsyncStorage.setItem(chave, JSON.stringify(valor))
-  }
-  const [banco, setBanco] = useState(null)
-
-
-
-const Buscar = async (chave)=>{
-  const valor = await AsyncStorage.getItem(chave)
-  const state = JSON.parse(valor)
-  setBanco(state)
-}
-
-function bus(){
-  Buscar('teste')
-  d.push(banco)
-}*/
 
 const [d,setD] = useState(dados)  
 const [comp, setComp] = useState(false);
@@ -63,25 +55,27 @@ const component = []
 
 
 function swipeableConclude(id, cond){
-  d.forEach(d=>{
+  banco.forEach(d=>{
     if(d.id == id){
       d.confirmation= cond
       setComp(!comp)
-      //console.log(banco)
+      AsyncStorage.setItem('BancoDados', JSON.stringify(banco))
     }
   })
-  //Armazenar('BancoDeDados',{d})
 }
 function swipeableIncomplete(id){
 
-    const task = d.filter(dados=>dados.id !== id)
-    setD(task)
-  }
-  
-  d.forEach(d=>{
+  const task = banco.filter(dados=>dados.id !== id)
+    setBanco(task)
+    AsyncStorage.setItem('BancoDados', JSON.stringify(task))
+}
+ 
+if(banco != null){
+
+  banco.forEach(d=>{
     
     if(moment(d.day).format('D MMM YYYY') == fullDay){
-       
+      
       component.push(
         <List 
           start={moment(d.start).format('HH:mm')}
@@ -96,17 +90,14 @@ function swipeableIncomplete(id){
         </List>)
       }
     })
-    
-    
-    //console.log(banco)
-    
+  }
 
     const [isVisible, setIsVisible] = useState(false);
     const [newTaskIsVisible, setNewTaskIsVisible] = useState(false);
     
     function onIsVisible(){
       setIsVisible(!isVisible)
-      //bus()
+      buscar()
     }
 
     function newData(){
@@ -117,7 +108,7 @@ function swipeableIncomplete(id){
 
   
   function form(task, init, end, id){
-    d.push(  {
+    banco.push(  {
       day: fullDay,
       start: init,
       end: end,
@@ -125,26 +116,14 @@ function swipeableIncomplete(id){
       confirmation: false,
       id: id
     },)
-    /*Armazenar('teste', {
-      day: fullDay,
-      start: init,
-      end: end,
-      activity: task,
-      confirmation: false,
-      id: id
-    })*/
+
     setNewTaskIsVisible(!newTaskIsVisible);
-    
+    AsyncStorage.setItem('BancoDados', JSON.stringify(banco))
   }
   
   function cancel(){
     setNewTaskIsVisible(!newTaskIsVisible)
-  }
-  
- 
-
-
-  
+  }  
 
   return (
     

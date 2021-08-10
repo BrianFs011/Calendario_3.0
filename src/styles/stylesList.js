@@ -16,6 +16,10 @@ export default StyleSheet.create({
     borderRadius: 5,
     borderColor:'#b9996a', 
     backgroundColor: '#ddd',
+    borderBottomWidth: 3,
+    borderRightWidth: 3,
+    paddingBottom: 1,
+    marginBottom:2
   },
   textReadActivity:{
     fontSize: 25,

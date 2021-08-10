@@ -1,19 +1,22 @@
 import React,{useState} from 'react'
-import {View, Text, Touchable, TouchableOpacity} from 'react-native'
+import {View, Text, Touchable, TouchableOpacity, Modal} from 'react-native'
 import stylesList from '../styles/stylesList'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import styles from '../styles/stylesList'
 
 export default (props)=>{
 
   const {start, end, activity, confirmation, swipeableConfirmation, id, swipeableIncomplete} = props
- 
+
+  const [isVisible,setIsVisible]=useState(false)
+
   const getRightContent = ()=> {
     
     return(
-      <View style={{flex:1, justifyContent:'flex-end', alignItems:'center',paddingRight: 10, backgroundColor: '#ffb8b8',flexDirection:'row'}}>
-        <Text style={{color: '#c22525', fontSize: 20, marginRight: 10 }}>Deletar</Text>
-        <Icon name='trash' size={20}/>
+      <View style={[{justifyContent:'flex-end', alignItems:'center',paddingRight: 10, backgroundColor: '#b5b5b5',flexDirection:'row',flex:1}]}>
+        <Text style={{color: '#666', fontSize: 20, marginRight: 10 }}>Desfazer</Text>
+        <Icon name='undo' size={20}/>
       </View>
     )
   }
@@ -28,7 +31,15 @@ export default (props)=>{
     )
   }
 
-
+  const alert = (props)=>{
+    if (props == true){
+      setIsVisible(!isVisible)
+      swipeableIncomplete(id,true)
+    } 
+    else{
+      setIsVisible(!isVisible)
+    }
+  }
 
   const boxStyleConfirmation = []
   const textStyleConfirmation = []
@@ -38,10 +49,31 @@ export default (props)=>{
   }
 
   return (
-    <Swipeable renderLeftActions={getLeftContent} renderRightActions={getRightContent} onSwipeableLeftOpen={()=> swipeableConfirmation(id, true)} onSwipeableRightOpen={()=>swipeableIncomplete(id)}>
+    <Swipeable onSwipeableClose={()=> swipeableConfirmation(id,false)} renderLeftActions={getLeftContent} onSwipeableLeftOpen={()=> swipeableConfirmation(id, true)} >
 
+        <Modal visible={isVisible} transparent={true} >
+
+          <View style={{flex:1, alignItems:'center',justifyContent:'center', backgroundColor:'rgba(0,0,0,0.4)'}}>
+
+            <View style={[styles.window,{height:'30%', width:'80%', alignItems:'center',justifyContent:'center'}]}>
+              <Text style={[styles.textReadActivity, {fontSize: 40}]}>Excluir</Text>
+              <Text style={[styles.textReadActivity, {marginTop:30}]}>Deseja Excluir essa Tarefa?</Text>
+              
+              <View style={{flexDirection:'row', marginTop:20}}>
+
+                <TouchableOpacity style={[styles.window, {marginTop: 20, marginLeft: 10, width: '30%', alignItems: 'center'}]} onPress={()=>alert(false)}>
+                  <Text style={[styles.textReadActivity,{color: '#c22525'}]}>Não</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.window, {marginTop: 20, marginLeft: 10, width: '30%', alignItems: 'center'}]} onPress={()=>alert(true)}>
+                  <Text style={[styles.textReadActivity, {color: '#4db830'}]}>Sim</Text>
+                </TouchableOpacity>
+
+              </View>
+            </View>
+          </View>
+        </Modal>
       
-      <View style={stylesList.conteiner}>
+      <TouchableOpacity onLongPress={()=>setIsVisible(!isVisible)} style={stylesList.conteiner}>
 
         <View style={[stylesList.boxReadActivity,boxStyleConfirmation]}>
           <Text style={[stylesList.textReadActivity, textStyleConfirmation]}>{start}</Text>
@@ -53,7 +85,7 @@ export default (props)=>{
           <Text style={[stylesList.textReadActivity, textStyleConfirmation]}>{activity}</Text>
         </View>
         
-      </View>
+      </TouchableOpacity>
     
     </Swipeable>
   )

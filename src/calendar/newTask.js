@@ -24,21 +24,18 @@ export default (props)=>{
     setEndDate()
   }
   
-  if(showInit == true){
-    return <DateTimePicker testID={new Date()} value={new Date()} onChange={(_,date)=>{setInitDate(date), setShowInit(false)}} mode='time'/>
-  }
-  
-  if(showEnd == true){
-    return(
-      <View style={styles.conteiner}>
-        <DateTimePicker testID={new Date()} value={new Date()} onChange={(_,date)=>{setEndDate(date), setShowEnd(false)}} mode='time'/>
-      </View>
-    ) 
-  }
-  
   return(
     <Modal transparent={true} visible={isVisible}  animationType='fade'>
       <GestureHandlerRootView style={{flex:1}}>
+
+        <Modal visible={showInit} transparent={true}>
+          <DateTimePicker testID={new Date()} value={new Date()} onChange={(_,date)=>{setInitDate(date), setShowInit(false)}} mode='time'/>
+        </Modal>
+
+        <Modal visible={showEnd} transparent={true}>
+          <DateTimePicker testID={new Date()} value={new Date()} onChange={(_,date)=>{setEndDate(date), setShowEnd(false)}} mode='time'/>
+        </Modal>
+
         <View style={{flex: 1,justifyContent: 'center', alignItems:'center',backgroundColor:'rgba(0,0,0,0.4)'}}>
           <View style={{width:'100%', backgroundColor:'#ddd',borderWidth:1, borderColor:'#b9996a', borderRadius: 5,paddingBottom: 20}}>
             
