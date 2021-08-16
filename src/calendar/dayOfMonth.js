@@ -9,32 +9,6 @@ import config from './initialConfig'
 import List from './list';
 import NewTask from './newTask';
 
-const dados = [{
-  id:1,
-  day: new Date(),
-  start: new Date(),
-  end: new Date(),
-  activity: 'correr',
-  confirmation: false
-},
-{
-  id: 2,
-  day: new Date(2021,7,9),
-  start: new Date(),
-  end: new Date(),
-  activity: 'codar',
-  confirmation: false
-},
-{
-  id: 3,
-  day: new Date(2021,7,9),
-  start: new Date(0,0,0,1,1,1),
-  end: new Date(0,0,0,1,1,3),
-  activity: 'codar',
-  confirmation: false
-},];
-
-
 const Calendar = (props)=>{
 
   const [banco, setBanco] = useState(null)
@@ -43,13 +17,11 @@ const Calendar = (props)=>{
     const valor = await AsyncStorage.getItem('BancoDados')
     const state = JSON.parse(valor)
     setBanco(state)
-    //console.log(state)
   } 
 
   
-  const {day, dayweek, fullDay} = props
-
-const [d,setD] = useState(dados)  
+const {day, dayweek, fullDay} = props
+  
 const [comp, setComp] = useState(false);
 const component = []
 
@@ -97,6 +69,7 @@ if(banco != null){
     
     function onIsVisible(){
       setIsVisible(!isVisible)
+      //config.check = false
       buscar()
     }
 
