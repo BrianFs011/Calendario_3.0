@@ -4,6 +4,10 @@ import { View, Text, TouchableOpacity} from 'react-native';
 import style from './style';
 import ButtonDay from '../../components/buttonDay/index';
 import moment from 'moment';
+import DiaryComponent from '../diary/index';
+
+import { useDispatch, useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Title = ({initDate})=>{
   return(
@@ -73,7 +77,6 @@ const Filter = ({lastMonth, nextMonth})=>{
   )
 }
 
-
 export default Calendar = ({initialMonth}) => {
   const armazenar = []
 
@@ -116,9 +119,29 @@ export default Calendar = ({initialMonth}) => {
 
   return (
     <View style={style.conteiner}>
-      {armazenar.map(days => <ButtonDay key={Math.random()} day={days}/>)}
+      {armazenar.map(days => <ButtonDay key={Math.random()} day={days} fullDate={initialMonth}/>)}
     </View>
   )
 }
 
-export {DayWeek, Title, Filter};
+const Diary = ({initialMonth})=>{
+  
+  
+  const tasks = useSelector(state=>state.tasks);
+
+  //hide page diary went press X
+  const diaryIsVisible = useSelector(state=>state.diaryIsVisible);
+  const showDay = useSelector(state=>state.showDay);
+  const dispatch = useDispatch();
+  async function setDiaryIsVisible(){
+    dispatch({type:'diary', switch: !diaryIsVisible});
+  }
+
+  return(
+    <View>
+      <DiaryComponent visible={diaryIsVisible} tasks={tasks} setDiaryIsVisible={setDiaryIsVisible} fullDay={showDay}/>
+    </View>
+  )
+}
+
+export {DayWeek, Title, Filter, Diary};

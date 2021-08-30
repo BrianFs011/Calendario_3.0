@@ -1,29 +1,32 @@
 /* import React from 'react';
 import { View, Text } from 'react-native';
-import {Provider} from 'react-redux';
 
 //import styles from './style']
 
-import store from './store'
 import Teste from './components/teste/index';
 
 export default App = () => {
   return (
     <Provider store={store}>
-      <View style={{flex:1,alignItems: 'center',justifyContent:'center'}}>
-        <Teste></Teste>
-      </View>
+    <View style={{flex:1,alignItems: 'center',justifyContent:'center'}}>
+    <Teste></Teste>
+    </View>
     </Provider>
-  )
-} */
+    )
+  } */
+  
+import React, {useState}            from 'react';
+import {View,Text,ImageBackground} from 'react-native';
+import Calendar,{DayWeek, Title, Filter, Diary} from './pages/calendar/index';
+import {Provider} from 'react-redux';
+import store from './store/redux/index';
+//import {} from 'react-redux';
 
-import React, {useState}            from 'react'
-import {View,Text,ImageBackground} from 'react-native'
-import moment           from 'moment'
+import moment           from 'moment';
+import styles from './components/buttonDay/style';
 
-import styles from './components/buttonDay/style'
-
-import Calendar,{DayWeek, Title, Filter} from './pages/calendar/index'
+import Data from './store/AsyncStorage/index';
+import newTask from '../antigo/calendar/newTask';
 
 const initialMonth = new Date()
 
@@ -43,16 +46,16 @@ export default ()=>{
   return (
 
     <ImageBackground source={require('./assets/background/background.jpg')}  style={{flex: 1}}>
-    
-      <View >
+      <Provider store={store}>
         
-        <Title initDate={date}/>
-        <Filter lastMonth={lastMonth} nextMonth={nextMonth}/>
-        <DayWeek/>
-        <Calendar initialMonth={date}/>
+          <Title initDate={date}/>
+          <Filter lastMonth={lastMonth} nextMonth={nextMonth}/>
+          <DayWeek/>
+          <Calendar initialMonth={date}/>
+          
+          <Diary initialMonth={date}/> 
         
-      </View>
-     
+      </Provider>
     </ImageBackground>
   )
 } 

@@ -1,4 +1,5 @@
-import {StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native';
+import communStyles from '../../communStyles';
 
 export default StyleSheet.create({
   conteiner:{
