@@ -1,32 +1,11 @@
-/* import React from 'react';
-import { View, Text } from 'react-native';
+import React, {useState} from 'react';
+import {ImageBackground} from 'react-native';
 
-//import styles from './style']
-
-import Teste from './components/teste/index';
-
-export default App = () => {
-  return (
-    <Provider store={store}>
-    <View style={{flex:1,alignItems: 'center',justifyContent:'center'}}>
-    <Teste></Teste>
-    </View>
-    </Provider>
-    )
-  } */
-  
-import React, {useState}            from 'react';
-import {View,Text,ImageBackground} from 'react-native';
-import Calendar,{DayWeek, Title, Filter, Diary} from './pages/calendar/index';
 import {Provider} from 'react-redux';
+
 import store from './store/redux/index';
-//import {} from 'react-redux';
 
-import moment           from 'moment';
-import styles from './components/buttonDay/style';
-
-import Data from './store/AsyncStorage/index';
-import newTask from '../antigo/calendar/newTask';
+import Calendar,{DayWeek, Title, Filter, Diary} from './pages/calendar/index';
 
 const initialMonth = new Date()
 
